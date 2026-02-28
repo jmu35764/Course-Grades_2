@@ -2,8 +2,14 @@
 //
 
 #include <iostream>
+#include <string>
 
-
+struct  Student
+{
+    std::string name;
+    int id;
+    int grade[5];
+};
 
 
 int main()
