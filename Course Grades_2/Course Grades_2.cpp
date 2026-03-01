@@ -20,7 +20,7 @@ int main()
 {
     int stud_num, test_num;
     int grades[5][10];
-    int id[10];
+    double id[10];
     std::string names[10];
     int x = 0;
     std::string line;
@@ -36,17 +36,16 @@ int main()
         std::cerr << "Error: Could not open the file";
         exit(EXIT_FAILURE);
     }
-    //std::string firstline;
-
+    
     while (inputFile >> stud_num >> test_num)
     {
-        std::cout << stud_num << "  " << test_num;
+        std::cout << stud_num << std::setw(4) << test_num << std::endl;
         break;
     }
 
     std::getline(inputFile, line);
 
-    while (inputFile >> names[x] >> id[x] >> grades[x][0] >> grades[x][1] >> 
+    while (inputFile >> names[x] >> id[x] >> grades[x][0] >> grades[x][1] >>
             grades[x][2] >> grades[x][3] >> grades[x][4])
     {
         //x++;
