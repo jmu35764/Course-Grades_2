@@ -29,59 +29,66 @@ int main()
 
     std::ifstream inputFile(filename);
 
-    if (!inputFile.is_open())
-    {
-        std::cerr << "Error: Could not open the file";
-        exit(EXIT_FAILURE);
-    }
-    
-    while (inputFile >> stud_num >> test_num)
-    {
-        std::cout << stud_num << std::setw(4) << test_num << std::endl;
-        break;
-    }
+    x = ReadTxt(filename, stud_num, test_num, students, x);
 
-   std::getline(inputFile, line);
-
-   while (inputFile >> students[x].name >> students[x].id >> students[x].grade[0] >> students[x].grade[1] >>
-            students[x].grade[2] >> students[x].grade[3] >> students[x].grade[4])
-    {
-        //x++;
-        std::cout << std::setw(8) << students[x].name << std::setw(6) << students[x].id
-            << std::setw(4) << students[x].grade[0] << std::setw(4) << students[x].grade[1] <<
-            std::setw(4) << students[x].grade[2] << std::setw(4) << students[x].grade[3] << 
-            std::setw(4) << students[x].grade[4] << std::endl;
-        
-        x++;
-    }
 
     //inputFile.close();
 
 }
 
-/*int ReadTxt(string file, string names[20], int grades[20][TESTNUMBER], int a)
+int ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a)
 {
-    ifstream inputFile(file);
+    std::string line;
+    std::ifstream inputFile(file);
 
     //Ends program if the file cannot be opened
     if (!inputFile.is_open())
     {
-        cerr << "Error: Could not open the file";
+        std::cerr << "Error: Could not open the file";
         exit(EXIT_FAILURE);
     }
 
     // While the file is opened, fill the values of the name
     // and grades array, and keep track of the number of
     // names/lines in the txt file
-    while (inputFile >> names[a] >> grades[a][0] >> grades[a][1] >>
-        grades[a][2] >> grades[a][3] >> grades[a][4])
+
+    while (inputFile >> stud_n >> test_n)
     {
+        std::cout << stud_n << std::setw(4) << test_n << std::endl;
+        break;
+    }
+
+    std::getline(inputFile, line);
+
+    while (inputFile >> student[a].name >> student[a].id >> student[a].grade[0] >> student[a].grade[1] >>
+        student[a].grade[2] >> student[a].grade[3] >> student[a].grade[4])
+    {
+        //x++;
+        std::cout << std::setw(8) << student[a].name << std::setw(6) << student[a].id
+            << std::setw(4) << student[a].grade[0] << std::setw(4) << student[a].grade[1] <<
+            std::setw(4) << student[a].grade[2] << std::setw(4) << student[a].grade[3] <<
+            std::setw(4) << student[a].grade[4] << std::endl;
+
         a++;
     }
 
+
+    /*while (inputFile >> students[x].name >> students[x].id >> students[x].grade[0] >> students[x].grade[1] >>
+        students[x].grade[2] >> students[x].grade[3] >> students[x].grade[4])
+    {
+        //x++;
+        std::cout << std::setw(8) << students[x].name << std::setw(6) << students[x].id
+            << std::setw(4) << students[x].grade[0] << std::setw(4) << students[x].grade[1] <<
+            std::setw(4) << students[x].grade[2] << std::setw(4) << students[x].grade[3] <<
+            std::setw(4) << students[x].grade[4] << std::endl;
+
+        x++;
+    }*/
+
+
     inputFile.close();
     return a;
-}*/
+}
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
