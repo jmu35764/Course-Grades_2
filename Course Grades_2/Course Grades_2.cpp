@@ -19,14 +19,12 @@ struct  Student
 int main()
 {
     int stud_num, test_num;
-    int grades[5][10];
-    double id[10];
-    std::string names[10];
     int x = 0;
     std::string line;
     //std::string test_num;
-    
-    //std::cout << "Hello World!\n";
+
+    Student students[10];
+
     std::string filename = "student_data.txt";
 
     std::ifstream inputFile(filename);
@@ -43,16 +41,16 @@ int main()
         break;
     }
 
-    std::getline(inputFile, line);
+   std::getline(inputFile, line);
 
-    while (inputFile >> names[x] >> id[x] >> grades[x][0] >> grades[x][1] >>
-            grades[x][2] >> grades[x][3] >> grades[x][4])
+   while (inputFile >> students[x].name >> students[x].id >> students[x].grade[0] >> students[x].grade[1] >>
+            students[x].grade[2] >> students[x].grade[3] >> students[x].grade[4])
     {
         //x++;
-        std::cout << std::setw(8) << names[x] << std::setw(6) << id[x]
-            << std::setw(4) << grades[x][0] << std::setw(4) << grades[x][1] <<
-            std::setw(4) << grades[x][2] << std::setw(4) << grades[x][3] << std::setw(4) << grades[x][4]
-            << std::endl;
+        std::cout << std::setw(8) << students[x].name << std::setw(6) << students[x].id
+            << std::setw(4) << students[x].grade[0] << std::setw(4) << students[x].grade[1] <<
+            std::setw(4) << students[x].grade[2] << std::setw(4) << students[x].grade[3] << 
+            std::setw(4) << students[x].grade[4] << std::endl;
         
         x++;
     }
