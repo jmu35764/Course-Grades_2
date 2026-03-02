@@ -11,32 +11,34 @@
 struct  Student
 {
     std::string name;
-    int id;
+    int id = 0;
     int grade[5];
 };
 
+void ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a);
 
 int main()
 {
-    int stud_num, test_num;
+    int stud_num = 0;
+    int test_num = 0;
     int x = 0;
     std::string line;
-    //std::string test_num;
 
-    Student students[10];
+    Student *std_ptr = new Student[10];
 
     std::string filename = "student_data.txt";
 
     std::ifstream inputFile(filename);
 
-    x = ReadTxt(filename, stud_num, test_num, students, x);
+    ReadTxt(filename, stud_num, test_num, std_ptr, x);
 
 
     //inputFile.close();
+    delete[] std_ptr;
 
 }
 
-int ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a)
+void ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a)
 {
     std::string line;
     std::ifstream inputFile(file);
@@ -87,7 +89,7 @@ int ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a
 
 
     inputFile.close();
-    return a;
+    //return a;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
