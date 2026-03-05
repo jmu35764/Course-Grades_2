@@ -11,34 +11,50 @@
 struct  Student
 {
     std::string name;
-    int id = 0;
-    int grade[5];
+    int id;
+    int *grade;
 };
 
-void ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a);
+Student *ReadData(std::string file, int &stud_n, int &test_n);
 
 int main()
 {
-    int stud_num = 0;
-    int test_num = 0;
-    int x = 0;
+    int stud_num, test_num;
     std::string line;
 
-    Student *std_ptr = new Student[10];
+    Student* std_ptr;
+    
+    //Student *std_ptr = new Student[10];
+    //std_ptr->grade[5] = new int[5];
 
-    std::string filename = "student_data.txt";
+    std::string filename = "Student_data.txt";
 
     std::ifstream inputFile(filename);
 
-    ReadTxt(filename, stud_num, test_num, std_ptr, x);
+    std_ptr = ReadData(filename, stud_num, test_num);
 
+    //std::cout << std::setw(4) << stud_num << std::setw(4) << test_num;
+
+    /*for (int i = 0; i < stud_num; i++)
+    {
+        std::cout << std::setw(10) << std_ptr[i].name << std_ptr[i].id;
+
+        for (int j = 0; j < test_num; j++)
+        {
+            std::cout << std::setw(4) << std_ptr[i].grade[j];
+        }
+    }*/
+    
 
     //inputFile.close();
+    //delete[] grade_ptr;
+    delete[] std_ptr->grade;
     delete[] std_ptr;
+    
 
 }
 
-void ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int a)
+Student *ReadData(std::string file, int &stud_n, int &test_n)
 {
     std::string line;
     std::ifstream inputFile(file);
@@ -54,42 +70,34 @@ void ReadTxt(std::string file, int stud_n, int test_n, Student student[10], int 
     // and grades array, and keep track of the number of
     // names/lines in the txt file
 
-    while (inputFile >> stud_n >> test_n)
+    //while 
+
+    inputFile >> stud_n >> test_n;
+    std::cout << stud_n << std::setw(4) << test_n << std::endl;
+
+
+    Student *student_list = nullptr;
+    student_list = new Student[stud_n];
+
+    for (int i = 0; i < stud_n; i++)
     {
-        std::cout << stud_n << std::setw(4) << test_n << std::endl;
-        break;
+        inputFile >> student_list[i].name >> student_list[i].id;
+
+        std::cout << " " << student_list[i].name << " " << student_list[i].id;
+            
+        student_list[i].grade = new int[test_n];
+
+        for (int j = 0; j < test_n; j++)
+        {
+            inputFile >> student_list[i].grade[j];
+
+            std::cout << " " << student_list[i].grade[j];
+        }
+
+        std::cout << std::endl;
     }
-
-    std::getline(inputFile, line);
-
-    while (inputFile >> student[a].name >> student[a].id >> student[a].grade[0] >> student[a].grade[1] >>
-        student[a].grade[2] >> student[a].grade[3] >> student[a].grade[4])
-    {
-        //x++;
-        std::cout << std::setw(8) << student[a].name << std::setw(6) << student[a].id
-            << std::setw(4) << student[a].grade[0] << std::setw(4) << student[a].grade[1] <<
-            std::setw(4) << student[a].grade[2] << std::setw(4) << student[a].grade[3] <<
-            std::setw(4) << student[a].grade[4] << std::endl;
-
-        a++;
-    }
-
-
-    /*while (inputFile >> students[x].name >> students[x].id >> students[x].grade[0] >> students[x].grade[1] >>
-        students[x].grade[2] >> students[x].grade[3] >> students[x].grade[4])
-    {
-        //x++;
-        std::cout << std::setw(8) << students[x].name << std::setw(6) << students[x].id
-            << std::setw(4) << students[x].grade[0] << std::setw(4) << students[x].grade[1] <<
-            std::setw(4) << students[x].grade[2] << std::setw(4) << students[x].grade[3] <<
-            std::setw(4) << students[x].grade[4] << std::endl;
-
-        x++;
-    }*/
-
-
-    inputFile.close();
-    //return a;
+       inputFile.close();
+    return student_list;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
