@@ -18,7 +18,8 @@ struct  Student
 };
 
 Student *ReadData(std::string file, int &stud_n, int &test_n);
-void calc_average(Student s[], int studnum, int testnum);
+void calc_average(Student s[], int stud_n, int test_n);
+char ConvertScore(Student s[], int stud_n);
 
 int main()
 {
@@ -52,10 +53,12 @@ int main()
 
     calc_average(std_ptr, stud_num, test_num);
 
-    /*for (int z = 0; z <= stud_num - 1; z++)
+    //ConvertScore(std_ptr, test_num);
+
+    for (int z = 0; z <= stud_num - 1; z++)
     {
-        std::cout << std_ptr[z].average << std::endl;
-    }*/
+        std::cout << std_ptr[z].average << std::setw(3) << ConvertScore(std_ptr, stud_num) << std::endl;
+    }
     
 
     //inputFile.close();
@@ -112,21 +115,21 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
     return student_list;
 }
 
-void calc_average(Student s[], int studnum, int testnum)
+void calc_average(Student s[], int stud_n, int test_n)
 {
     // Initalize value of total to 0
     double total = 0;
 
     // First for loop is for each student
-    for (int z = 0; z <= (studnum - 1); z++)
+    for (int z = 0; z <= (stud_n - 1); z++)
     {
         //Second for loop is for the grades of each student
-        for (int y = 0; y < testnum; y++)
+        for (int y = 0; y < test_n; y++)
         {
             total = s[z].grade[y] + total;
         }
 
-        s[z].average = total / testnum;
+        s[z].average = total / test_n;
 
         //std::cout << s[z].average << std::endl;
 
@@ -135,6 +138,40 @@ void calc_average(Student s[], int studnum, int testnum)
     }
 
 
+}
+
+char ConvertScore(Student s[], int stud_n)
+{
+    // This function outputs a character value based on a numerical score
+
+    char grade = 'z';
+
+    if (s[stud_n].average <= 100 && s[stud_n].average >= 90)
+    {
+        grade = 'A';
+    }
+
+    else if (s[stud_n].average < 90 && s[stud_n].average >= 80)
+    {
+        grade = 'B';
+    }
+
+    else if (s[stud_n].average < 80 && s[stud_n].average >= 70)
+    {
+        grade = 'C';
+    }
+
+    else if (s[stud_n].average < 70 && s[stud_n].average >= 60)
+    {
+        grade = 'D';
+    }
+
+    else if (s[stud_n].average < 60)
+    {
+        grade = 'F';
+    }
+
+    return grade;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
