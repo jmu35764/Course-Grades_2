@@ -52,10 +52,10 @@ int main()
 
     calc_average(std_ptr, stud_num, test_num);
 
-    for (int z = 0; z <= stud_num - 1; z++)
+    /*for (int z = 0; z <= stud_num - 1; z++)
     {
         std::cout << std_ptr[z].average << std::endl;
-    }
+    }*/
     
 
     //inputFile.close();
