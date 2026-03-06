@@ -13,7 +13,7 @@ struct  Student
     std::string name;
     int id;
     int *grade;
-    double average;
+    double average=0;
     char letter;
 };
 
@@ -57,7 +57,7 @@ int main()
 
     for (int z = 0; z <= stud_num - 1; z++)
     {
-        std::cout << std_ptr[z].average << std::setw(3) << ConvertScore(std_ptr, stud_num) << std::endl;
+        std::cout << z << " " << std_ptr[z].average << std::setw(3) << ConvertScore(std_ptr, z) << std::endl;
     }
     
 
