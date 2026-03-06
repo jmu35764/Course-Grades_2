@@ -20,6 +20,7 @@ struct  Student
 Student *ReadData(std::string file, int &stud_n, int &test_n);
 void calc_average(Student s[], int stud_n, int test_n);
 char ConvertScore(Student s[], int stud_n);
+void Report(Student s[], int stud_n, int test_n);
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
 
     std_ptr = ReadData(filename, stud_num, test_num);
 
-    std::cout << std::setw(4) << stud_num << std::setw(4) << test_num << std::endl;
+    //std::cout << std::setw(4) << stud_num << std::setw(4) << test_num << std::endl;
 
     /*for (int i = 0; i < stud_num; i++)
     {
@@ -53,12 +54,18 @@ int main()
 
     calc_average(std_ptr, stud_num, test_num);
 
-    //ConvertScore(std_ptr, test_num);
+    for (int z = 0; z < stud_num; z++)
+    {
+        std_ptr[z].letter = ConvertScore(std_ptr, z);
+    }
+    
 
-    for (int z = 0; z <= stud_num - 1; z++)
+    /*for (int z = 0; z < stud_num; z++)
     {
         std::cout << z << " " << std_ptr[z].average << std::setw(3) << ConvertScore(std_ptr, z) << std::endl;
-    }
+    }*/
+
+    Report(std_ptr, stud_num, test_num);
     
 
     //inputFile.close();
@@ -172,6 +179,26 @@ char ConvertScore(Student s[], int stud_n)
     }
 
     return grade;
+}
+
+void Report(Student s[], int stud_n, int test_n)
+{
+    std::cout << "<number_of_students>" << " " << "<number_of_tests>" << std::endl;
+
+    std::cout << std::setw(20) << stud_n << std::setw(17) << test_n << std::endl << std::endl;
+    
+    for (int i = 0; i < stud_n; i++)
+    {
+        std::cout << std::setw(10) << s[i].name << std::setw(6) << s[i].id;
+
+        for (int j = 0; j < test_n; j++)
+        {
+            std::cout << std::setw(4) << s[i].grade[j];
+        }
+
+        std::cout << std::setw(3) << s[i].letter << std::endl;
+    }
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
