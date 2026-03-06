@@ -33,17 +33,19 @@ int main()
 
     std_ptr = ReadData(filename, stud_num, test_num);
 
-    //std::cout << std::setw(4) << stud_num << std::setw(4) << test_num;
+    std::cout << std::setw(4) << stud_num << std::setw(4) << test_num << std::endl;
 
-    /*for (int i = 0; i < stud_num; i++)
+    for (int i = 0; i < stud_num; i++)
     {
-        std::cout << std::setw(10) << std_ptr[i].name << std_ptr[i].id;
+        std::cout << std::setw(10) << std_ptr[i].name << std::setw(6) << std_ptr[i].id;
 
         for (int j = 0; j < test_num; j++)
         {
             std::cout << std::setw(4) << std_ptr[i].grade[j];
         }
-    }*/
+
+        std::cout << std::endl;
+    }
     
 
     //inputFile.close();
@@ -73,7 +75,7 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
     //while 
 
     inputFile >> stud_n >> test_n;
-    std::cout << stud_n << std::setw(4) << test_n << std::endl;
+    //std::cout << stud_n << std::setw(4) << test_n << std::endl;
 
 
     Student *student_list = nullptr;
@@ -83,7 +85,7 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
     {
         inputFile >> student_list[i].name >> student_list[i].id;
 
-        std::cout << " " << student_list[i].name << " " << student_list[i].id;
+        //std::cout << " " << student_list[i].name << " " << student_list[i].id;
             
         student_list[i].grade = new int[test_n];
 
@@ -91,10 +93,10 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
         {
             inputFile >> student_list[i].grade[j];
 
-            std::cout << " " << student_list[i].grade[j];
+            //std::cout << " " << student_list[i].grade[j];
         }
 
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
        inputFile.close();
     return student_list;
