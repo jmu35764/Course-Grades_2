@@ -13,9 +13,12 @@ struct  Student
     std::string name;
     int id;
     int *grade;
+    double average;
+    char letter;
 };
 
 Student *ReadData(std::string file, int &stud_n, int &test_n);
+void calc_average(Student s[], int studnum, int testnum);
 
 int main()
 {
@@ -35,7 +38,7 @@ int main()
 
     std::cout << std::setw(4) << stud_num << std::setw(4) << test_num << std::endl;
 
-    for (int i = 0; i < stud_num; i++)
+    /*for (int i = 0; i < stud_num; i++)
     {
         std::cout << std::setw(10) << std_ptr[i].name << std::setw(6) << std_ptr[i].id;
 
@@ -45,6 +48,13 @@ int main()
         }
 
         std::cout << std::endl;
+    }*/
+
+    calc_average(std_ptr, stud_num, test_num);
+
+    for (int z = 0; z <= stud_num - 1; z++)
+    {
+        std::cout << std_ptr[z].average << std::endl;
     }
     
 
@@ -100,6 +110,31 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
     }
        inputFile.close();
     return student_list;
+}
+
+void calc_average(Student s[], int studnum, int testnum)
+{
+    // Initalize value of total to 0
+    double total = 0;
+
+    // First for loop is for each student
+    for (int z = 0; z <= (studnum - 1); z++)
+    {
+        //Second for loop is for the grades of each student
+        for (int y = 0; y < testnum; y++)
+        {
+            total = s[z].grade[y] + total;
+        }
+
+        s[z].average = total / testnum;
+
+        //std::cout << s[z].average << std::endl;
+
+        // Resets value of total for each student
+        total = 0;
+    }
+
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
