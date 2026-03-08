@@ -6,7 +6,8 @@
 #include <string>
 #include <fstream>
 
-//int ReadTxt(std::string file, std::string names[], int grades[], int a);
+
+//Initialize the Struct Student
 
 struct  Student
 {
@@ -22,54 +23,43 @@ void calc_average(Student s[], int stud_n, int test_n);
 char ConvertScore(Student s[], int stud_n);
 void Report(Student s[], int stud_n, int test_n);
 
+
+// This function displays the names of students, their ids
+// test scores, and letter grades by setting them all to values
+// in a dynamcially allocated struct array.
+
 int main()
 {
+    //Define variables for student number and test number
     int stud_num, test_num;
-    std::string line;
 
+    //Create struct pointer
     Student* std_ptr;
-    
-    //Student *std_ptr = new Student[10];
-    //std_ptr->grade[5] = new int[5];
 
+    //Create filename string
     std::string filename = "Student_data.txt";
 
-    std::ifstream inputFile(filename);
 
+    // Sets the value of the student pointer to the value
+    // that is returned in the ReadData functon
     std_ptr = ReadData(filename, stud_num, test_num);
 
-    //std::cout << std::setw(4) << stud_num << std::setw(4) << test_num << std::endl;
-
-    /*for (int i = 0; i < stud_num; i++)
-    {
-        std::cout << std::setw(10) << std_ptr[i].name << std::setw(6) << std_ptr[i].id;
-
-        for (int j = 0; j < test_num; j++)
-        {
-            std::cout << std::setw(4) << std_ptr[i].grade[j];
-        }
-
-        std::cout << std::endl;
-    }*/
-
+    // Calculates average test score of each student
     calc_average(std_ptr, stud_num, test_num);
 
-    for (int z = 0; z < stud_num; z++)
+    // Sets the letter grade for each student in the struct 
+    // array
+    for (int i = 0; i < stud_num; i++)
     {
-        std_ptr[z].letter = ConvertScore(std_ptr, z);
+        std_ptr[i].letter = ConvertScore(std_ptr, i);
     }
-    
 
-    /*for (int z = 0; z < stud_num; z++)
-    {
-        std::cout << z << " " << std_ptr[z].average << std::setw(3) << ConvertScore(std_ptr, z) << std::endl;
-    }*/
-
+    // Displays a report of the students names, id's
+    // Test grades, and letter grades
     Report(std_ptr, stud_num, test_num);
     
-
-    //inputFile.close();
-    //delete[] grade_ptr;
+    // Deallocates memory for first the grade array pointer 
+    // and then the struct array pointer
     delete[] std_ptr->grade;
     delete[] std_ptr;
     
@@ -78,7 +68,7 @@ int main()
 
 Student *ReadData(std::string file, int &stud_n, int &test_n)
 {
-    std::string line;
+    //Create inputeFile object for input operations
     std::ifstream inputFile(file);
 
     //Ends program if the file cannot be opened
@@ -88,35 +78,35 @@ Student *ReadData(std::string file, int &stud_n, int &test_n)
         exit(EXIT_FAILURE);
     }
 
-    // While the file is opened, fill the values of the name
-    // and grades array, and keep track of the number of
-    // names/lines in the txt file
-
-    //while 
-
+    // Set value of student number and test number
+    // to the first two values in the first line
+    // of the txt file
     inputFile >> stud_n >> test_n;
-    //std::cout << stud_n << std::setw(4) << test_n << std::endl;
 
-
+    //Set up pointer for struct array
     Student *student_list = nullptr;
+
+    // Dynamically allocate memory for
+    // struct array
     student_list = new Student[stud_n];
 
+    
+    // First fills value for names and id in struct 
+    // array
     for (int i = 0; i < stud_n; i++)
     {
         inputFile >> student_list[i].name >> student_list[i].id;
-
-        //std::cout << " " << student_list[i].name << " " << student_list[i].id;
             
         student_list[i].grade = new int[test_n];
 
         for (int j = 0; j < test_n; j++)
         {
+            // Then fills the values of the grade array
+            // inside each struct
             inputFile >> student_list[i].grade[j];
 
-            //std::cout << " " << student_list[i].grade[j];
         }
 
-        //std::cout << std::endl;
     }
        inputFile.close();
     return student_list;
@@ -138,13 +128,8 @@ void calc_average(Student s[], int stud_n, int test_n)
 
         s[z].average = total / test_n;
 
-        //std::cout << s[z].average << std::endl;
-
-        // Resets value of total for each student
         total = 0;
     }
-
-
 }
 
 char ConvertScore(Student s[], int stud_n)
@@ -183,19 +168,23 @@ char ConvertScore(Student s[], int stud_n)
 
 void Report(Student s[], int stud_n, int test_n)
 {
+    // Create headers
     std::cout << "<number_of_students>" << " " << "<number_of_tests>" << std::endl;
 
-    std::cout << std::setw(20) << stud_n << std::setw(17) << test_n << std::endl << std::endl;
+    std::cout << std::setw(21) << std::left << stud_n << std::setw(17) << test_n << std::endl << std::endl;
     
     for (int i = 0; i < stud_n; i++)
     {
+        // Display out student names and id
         std::cout << std::setw(10) << s[i].name << std::setw(6) << s[i].id;
 
         for (int j = 0; j < test_n; j++)
         {
+            // Display student grades
             std::cout << std::setw(4) << s[i].grade[j];
         }
 
+        // Display letter grades
         std::cout << std::setw(3) << s[i].letter << std::endl;
     }
 
